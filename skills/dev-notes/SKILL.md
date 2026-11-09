@@ -1,6 +1,6 @@
 ---
 name: dev-notes
-description: "Keep per-ticket development notes outside the repository: the plan, the progress, and a decision log that records WHY every decision was made, what was rejected, who decided, and what it assumes. Use when starting or resuming work on a ticket; the moment a decision is made (a user answer, a review response, a design choice, a default you picked yourself, a change of direction); after a commit, push or PR; at the end of a session; and whenever someone asks 'why did we…'. Triggers: 'note this', 'write it down', 'update the notes', 'tracker', 'decision log', 'record the decision', 'why did we', 'why is it like this'."
+description: "Keep per-ticket development notes outside the repository: the plan, the progress, and a decision log that records WHY every decision was made, what was rejected, who decided, and what it assumes. Use when starting or resuming work on a ticket (checks the ticket's notes and creates them if they're missing); the moment a decision is made (a user answer, a review response, a design choice, a default you picked yourself, a change of direction); after a commit, push or PR; at the end of a session; and whenever someone asks 'why did we…'. Triggers: 'we start working on <ticket>', 'start on', 'pick up', 'continue with', 'back to', 'let's work on', 'resume', 'note this', 'write it down', 'update the notes', 'tracker', 'decision log', 'record the decision', 'why did we', 'why is it like this'."
 ---
 
 # Dev notes
@@ -20,7 +20,7 @@ It's often a guess, and it misses the options nobody weighed.
   `Development notes: <path>`.
 - **One folder per ticket**, named by the ticket key (`PROJ-1234/`). Work without a ticket gets a short topic slug
   (`passkeys-spike/`). Work that spans tickets gets its own folder (`tools/`, `coordination/`).
-- Create the folder the first time you write to it.
+- Create the folder when work on the ticket starts (see "Starting a ticket"), or the first time you write to it.
 - **Never inside the repository's working tree, and never staged.** If a notes file turns up in the tree, move it to
   the notes folder.
 
@@ -36,6 +36,24 @@ Add other files as needed: `REVIEW-TRACKER.md` (each review comment and what hap
 `PR-<number>-BODY.md` drafts, query snapshots, scripts.
 
 Start a new ticket folder from the three templates in `templates/`.
+
+## Starting a ticket
+
+When work starts or resumes on a ticket ("we start working on PROJ-1234", "pick up PROJ-1234", "continue with…"), do
+this before anything else:
+
+1. **Find the ticket's folder** under the notes root.
+2. **If it exists, read it:** `PROGRESS.md` ("Now"), `PLAN.md` and `DECISIONS.md`. Tell the user where things stand
+   in three lines: the state, the next step, and what's open or blocked. Then carry on from "Now".
+3. **If it doesn't exist, create it now,** with the three files from `templates/`:
+   - **Fill the driver and the goal from the ticket:** the summary and the description, if a tracker tool is
+     available (Jira, GitHub issues, Linear). The driver says why the ticket exists, in the words of whoever wrote it.
+     Leave out what the ticket doesn't say. Don't make it up.
+   - **No tracker tool, or nothing useful in the ticket?** Ask the user one question: why does this ticket exist, and
+     what's the goal?
+   - **Set "Now"** in `PROGRESS.md` to "Started <date>", with the first step as the next step.
+   - Tell the user the folder was created, in one line.
+4. **Then start the work.**
 
 ## The decision log
 
@@ -135,7 +153,8 @@ label that exists only in the notes. Ticket keys are fine.
 
 ## Checklist
 
-- **Starting or resuming a ticket:** read `PROGRESS.md` (Now), `PLAN.md` and `DECISIONS.md` before you act.
+- **Starting or resuming a ticket:** find the folder; read it, or create it from the templates and the ticket. Then
+  read "Now" before you act.
 - **The user answered or chose:** write the decision entry, then continue.
 - **After a review round:** write one entry for each comment whose outcome was a real choice: accepted, accepted in
   part, or pushed back.
